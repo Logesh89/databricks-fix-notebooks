@@ -1,1 +1,0 @@
-filtered_df = df.filter((df.state == "Bihar") & (df.district == "Araria"))
