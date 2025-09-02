@@ -9,10 +9,11 @@ df_new_data_increment = spark.createDataFrame(new_data, columns)
 # Load the existing data from the table
 df_existing_data = spark.table("custoomer_data.table.historical_data")
 
-# Ensure schema consistency by selecting only common columns
-common_columns = list(set(df_existing_data.columns) & set(df_new_data_increment.columns))
+# Rename the 'amount' column in df_new_data_increment to match the existing schema
+df_new_data_increment = df_new_data_increment.withColumnRenamed('amount', 'amount_new')
 
-df_combined_data = df_existing_data.select(common_columns).union(df_new_data_increment.select(common_columns))
+# Union the new data with the existing data
+df_combined_data = df_existing_data.unionByName(df_new_data_increment, allowMissingColumns=True)
 
 # Write the combined data back to the table
 df_combined_data.write.mode("overwrite").saveAsTable("custoomer_data.table.historical_data")
