@@ -2,7 +2,6 @@
 df = spark.table("model.modelllm.weather_data_jun_12_2025")
 display(df)
 
-
 # COMMAND ----------
 
 df = spark.table("model.modelllm.weather_data_jun_12_2025")
@@ -27,7 +26,6 @@ display(filtered_df)
 
 df_bihar = df.filter((df.state == "Bihar") & (df.district == "Araria"))
 display(df_bihar.select("date", "temperatures_min", "temperatures_max", "precipitation_amount"))
-
 
 # COMMAND ----------
 
