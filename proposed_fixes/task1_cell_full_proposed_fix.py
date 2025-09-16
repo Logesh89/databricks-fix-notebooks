@@ -1,18 +1,10 @@
 df = spark.table("model.modelllm.weather_data_jun_12_2025")
-display(df)
-
-df = spark.table("model.modelllm.weather_data_jun_12_2025")
 filtered_df = df.filter((df.state == "Bihar") & (df.district == "Aurangabad")) 
 display(filtered_df)
 
 df = spark.table("model.modelllm.weather_data_jun_12_2025")
 filtered_df = df.filter((df.state == "Bihar") & (df.district == "Arwal")) 
 display(filtered_df)
-
-# MAGIC %sql
-SELECT date, district, temperatures_min, temperatures_max
-FROM model.modelllm.weather_data_jun_12_2025
-LIMIT 10;
 
 df_bihar = df.filter((df.state == "Bihar") & (df.district == "Araria"))
 display(df_bihar.select("date", "temperatures_min", "temperatures_max", "precipitation_amount"))
