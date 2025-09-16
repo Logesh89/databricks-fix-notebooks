@@ -1,3 +1,6 @@
+df_bihar = df.filter((df.state == "Bihar") & (df.district == "Araria"))
+display(df_bihar.select("date", "temperatures_min", "temperatures_max", "precipitation_amount"))
+
 df = spark.table("model.modelllm.weather_data_jun_12_2025")
 filtered_df = df.filter((df.state == "Bihar") & (df.district == "Aurangabad")) 
 display(filtered_df)
@@ -5,9 +8,6 @@ display(filtered_df)
 df = spark.table("model.modelllm.weather_data_jun_12_2025")
 filtered_df = df.filter((df.state == "Bihar") & (df.district == "Arwal")) 
 display(filtered_df)
-
-df_bihar = df.filter((df.state == "Bihar") & (df.district == "Araria"))
-display(df_bihar.select("date", "temperatures_min", "temperatures_max", "precipitation_amount"))
 
 from pyspark.sql import functions as F
 
