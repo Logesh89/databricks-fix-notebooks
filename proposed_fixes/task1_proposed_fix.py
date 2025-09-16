@@ -38,7 +38,7 @@ df_agg = (
           F.avg("temperatures_max").alias("avg_max_temp"),
           F.sum("precipitation_amount").alias("total_rain")
       )
-      .orderBy(F.desc("avg_max_temp"))
+      .orderBy(F.col("avg_max_temp").desc())
 )
 
 display(df_agg)
