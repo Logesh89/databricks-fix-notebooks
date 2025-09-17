@@ -20,12 +20,11 @@ display(filtered_df)
 # MAGIC SELECT date, district, temperatures_min, temperatures_max
 # MAGIC FROM model.modelllm.weather_data_jun_12_2025
 # MAGIC LIMIT 10;
-# MAGIC
 
 # COMMAND ----------
 
-df_bihar = df.filter((df.state == "Bihar") & (df.district == "Araria"))
-display(df_bihar.select("date", "temperatures_min", "temperatures_max", "precipitation_amount"))
+df_araria = df.filter((df.state == "Bihar") & (df.district == "Araria"))
+display(df_araria.select("date", "temperatures_min", "temperatures_max", "precipitation_amount"))
 
 # COMMAND ----------
 
