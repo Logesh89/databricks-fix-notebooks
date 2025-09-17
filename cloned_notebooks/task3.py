@@ -1,4 +1,10 @@
 # Databricks notebook source
+df = spark.table("model.modelllm.weather_data_jun_12_2025")
+filtered_df = df.filter((df.state == "Bihar") & (df.district == "Aurangabad")) 
+display(filtered_df)
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC ### Daily Min/Max Temperature Difference
 
@@ -12,7 +18,6 @@ df_with_diff = df.withColumn(
 )
 
 display(df_with_diff.select("date", "district", "temperatures_min", "temperatures_max", "temp_diff"))
-
 
 # COMMAND ----------
 
