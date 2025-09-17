@@ -12,7 +12,7 @@ display(filtered_df)
 
 from pyspark.sql import functions as F
 
-df_with_diff = df.withColumn(
+df_with_diff = filtered_df.withColumn(
     "temp_diff", 
     F.col("temperatures_max") - F.col("temperatures_min")
 )
