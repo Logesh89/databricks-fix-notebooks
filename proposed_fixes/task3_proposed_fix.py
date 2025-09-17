@@ -1,44 +1,36 @@
 # Databricks notebook source
 df = spark.table("model.modelllm.weather_data_jun_12_2025")
-display(df)
-
-# COMMAND ----------
-
-df = spark.table("model.modelllm.weather_data_jun_12_2025")
 filtered_df = df.filter((df.state == "Bihar") & (df.district == "Aurangabad")) 
 display(filtered_df)
 
 # COMMAND ----------
 
-df = spark.table("model.modelllm.weather_data_jun_12_2025")
-filtered_df = df.filter((df.state == "Bihar") & (df.district == "Arwal")) 
-display(filtered_df)
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC SELECT date, district, temperatures_min, temperatures_max
-# MAGIC FROM model.modelllm.weather_data_jun_12_2025
-# MAGIC LIMIT 10;
-# MAGIC
-
-# COMMAND ----------
-
-df_bihar = df.filter((df.state == "Bihar") & (df.district == "Araria"))
-display(df_bihar.select("date", "temperatures_min", "temperatures_max", "precipitation_amount"))
+# MAGIC %md
+# MAGIC ### Daily Min/Max Temperature Difference
 
 # COMMAND ----------
 
 from pyspark.sql import functions as F
 
-df_agg = (
-    df.groupBy("district")
-      .agg(
-          F.avg("temperatures_min").alias("avg_min_temp"),
-          F.avg("temperatures_max").alias("avg_max_temp"),
-          F.sum("precipitation_amount").alias("total_rain")
-      )
-      .orderBy(F.col("avg_max_temp").desc())
+df_with_diff = df.withColumn(
+    "temp_diff", 
+    F.col("temperatures_max") - F.col("temperatures_min")
 )
 
-display(df_agg)
+display(df_with_diff.select("date", "district", "temperatures_min", "temperatures_max", "temp_diff"))
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Hottest Districts (by Max Temp)
+
+# COMMAND ----------
+
+df_hottest = (
+    df.groupBy("district")
+      .agg(F.max("temperatures_max").alias("hottest_temp"))
+      .orderBy(F.col("hottest_temp").desc())
+      .limit(5)
+)
+
+display(df_hottest)
