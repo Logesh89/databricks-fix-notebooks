@@ -5,25 +5,25 @@ display(df)
 # COMMAND ----------
 
 df = spark.table("model.modelllm.weather_data_jul_10_2025")
-filtered_df = df.filter((df["state"] == "Bihar") & (df["district"] == "Aurangabad")) 
+filtered_df = df.filter((df.state == "Bihar") & (df.district == "Aurangabad")) 
 display(filtered_df)
 
 # COMMAND ----------
 
 df = spark.table("model.modelllm.weather_data_jul_10_2025")
-filtered_df = df.filter((df["state"] == "Bihar") & (df["district"] == "Arwal")) 
+filtered_df = df.filter((df.state == "Bihar") & (df.district == "Arwal")) 
 display(filtered_df)
 
 # COMMAND ----------
 
 # MAGIC %sql
 # MAGIC SELECT date, district, temperatures_min, temperatures_max
-# MAGIC FROM model.modelllm.weather_data_jun_12_2025
+# MAGIC FROM model.modelllm.weather_data_jul_10_2025
 # MAGIC LIMIT 10;
 
 # COMMAND ----------
 
-df_araria = df.filter((df["state"] == "Bihar") & (df["district"] == "Araria"))
+df_araria = df.filter((df.state == "Bihar") & (df.district == "Araria"))
 display(df_araria.select("date", "temperatures_min", "temperatures_max", "precipitation_amount"))
 
 # COMMAND ----------
